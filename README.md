@@ -1,5 +1,7 @@
 ### Implementing JSON API in a Rails 5 API
 
+http://jsonapi.org/
+
 http://www.thegreatcodeadventure.com/building-a-super-simple-rails-api-json-api-edition-2/
 
 ### Tools
