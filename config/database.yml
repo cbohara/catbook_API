@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: postgres
+  port: 5432
+  host: db
+
+development:
+  <<: *default
+  host: db
+
+test:
+  <<: *default
+  host: db
