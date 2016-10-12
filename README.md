@@ -1,24 +1,31 @@
-# README
+### Implementing JSON API in a Rails 5 API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+http://www.thegreatcodeadventure.com/building-a-super-simple-rails-api-json-api-edition-2/
 
-Things you may want to cover:
+### Tools
 
-* Ruby version
+Rails 5.0.0.1
 
-* System dependencies
+Docker
 
-* Configuration
+### Docker Cheatsheet
 
-* Database creation
+- build docker image based on Dockerfile
 
-* Database initialization
+  - docker-compose build
 
-* How to run the test suite
+- spin up and connect containers as directed in docker-compose.yml
 
-* Services (job queues, cache servers, search engines, etc.)
+  - docker-compose up -d
 
-* Deployment instructions
+- run standard rails commands
 
-* ...
+  - docker-compose run app bundle install
+
+  - docker-compose run app rails console
+
+  - docker-compose run app rake routes
+
+  - docker-compose run app rake db:reset db:migrate
+
+  - docker-compose run app rake db:seed
