@@ -1,4 +1,4 @@
-### Building a CRUD App with React + Redux backed a Rails 5 JSON API
+### Building a CRUD App with React + Redux backed by a Rails 5 JSON API
 
 Implementing JSON API according to standards:
 
