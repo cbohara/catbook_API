@@ -24,10 +24,6 @@ Docker
 
   - docker-compose run app bundle install
 
-  - docker-compose run app rails console
+  - docker-compose run app rails db:migrate
 
-  - docker-compose run app rake routes
-
-  - docker-compose run app rake db:reset db:migrate
-
-  - docker-compose run app rake db:seed
+  - docker-compose run app rails db:setup
