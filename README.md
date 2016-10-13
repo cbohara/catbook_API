@@ -8,13 +8,7 @@ Built the JSON API with Rails 5 following this blog post:
 
 http://www.thegreatcodeadventure.com/building-a-super-simple-rails-api-json-api-edition-2/
 
-Building the React + Redux front-end following this blog post series:
-
-http://www.thegreatcodeadventure.com/building-a-simple-crud-app-with-react-redux-part-1/
-
 ### Tools
-
-React + Redux
 
 Rails 5.0.0.1 JSON API
 
