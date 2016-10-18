@@ -40,6 +40,8 @@ RUN apk add --no-cache \
  && find / -type f -iname '*.apk-new' -delete \
  && rm -rf '/var/cache/apk/*' '/tmp/*' '/var/tmp/*'
 
+ RUN bundle config build.nokogiri --use-system-libraries
+
 WORKDIR $APP
 COPY start.sh template.rb entrypoint.sh install_rails.sh /home/app/
 
