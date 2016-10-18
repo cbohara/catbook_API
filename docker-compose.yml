@@ -1,18 +1,28 @@
 version: '2'
 services:
   app:
-    build: .
-    links:
+    image: nooulaif/rails
+    environment:
+      - RAILS_VERSION=5.0.0.1
+      - APP_NAME=example
+      - DB_HOST=db
+      - DB_ADAPTER=postgresql
+      - DB_USER=postgres
+    volumes:
+      - ./:/home/app/webapp
+      - bundle_data:/home/app/bundle
+    depends_on:
       - db
     ports:
-      - "3001:3000"
-    volumes:
-      - .:/usr/src/app
-    volumes_from:
-      - gems
+      - 3000:3000
   db:
-    image: postgres:9
-  gems:
-    image: busybox
+    image: postgres:9.5
     volumes:
-      - /ruby_gems
+      - db_data:/var/lib/postgresql
+    logging:
+      driver: none
+volumes:
+  bundle_data:
+    driver: local
+  db_data:
+    driver: local
