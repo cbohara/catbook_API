@@ -1,54 +1,31 @@
 FROM ruby:2.3-alpine
 
-RUN apk update && apk add --no-cache \
-  autoconf \
-  automake \
-  bzip2 \
-  bzip2-dev \
-  ca-certificates \
-  curl \
-  curl-dev \
-  file \
-  g++ \
-  gcc \
-  geoip-dev \
-  git \
-  glib-dev \
-  imagemagick \
-  jpeg-dev \
-  libc-dev \
-  libevent-dev \
-  libffi-dev \
-  libpng-dev \
-  libpq \
-  libtool \
-  libwebp-dev \
-  libxml2-dev \
-  libxslt-dev \
-  linux-headers \
-  make \
-  nodejs \
-  ncurses-dev \
-  openssl-dev \
-  patch \
-  postgresql-dev \
-  readline-dev \
-  sqlite-dev \
-  xz-dev \
-  yaml-dev \
-  zlib-dev
+WORKDIR /rails
+
+# Clean up anything in /rails
+RUN rm -fr /rails/*
+
+# Move the development Gemfile into place
+COPY rails-server/Gemfile /rails/
+COPY rails-server/Gemfile.lock /rails/
+
+# Add build stuff for nokogiri (and others??)
+RUN apk add --no-cache --virtual .rails-build-deps \
+        build-base \
+        libxml2-dev \
+        libxslt-dev
 
 RUN bundle config build.nokogiri --use-system-libraries
 RUN gem install nokogiri -v '1.6.8'
 RUN bundle
 
-ENV INSTALL_PATH /src/catbook
-RUN mkdir -p $INSTALL_PATH
-WORKDIR $INSTALL_PATH
+# We don't want any external mounting other than logs
+VOLUME ["/rails/log"]
 
-COPY Gemfile Gemfile
-RUN bundle install
+# Setup the entrypoint
+COPY docker-entrypoint.sh /bin/
+RUN chmod +x /bin/docker-entrypoint.sh
 
-COPY . .
-
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+# Get stuff running
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["rails", "server", "puma"]
