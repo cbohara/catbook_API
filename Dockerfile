@@ -5,27 +5,15 @@ WORKDIR /rails
 # Clean up anything in /rails
 RUN rm -fr /rails/*
 
-# Move the development Gemfile into place
-COPY rails-server/Gemfile /rails/
-COPY rails-server/Gemfile.lock /rails/
+# Copy in development files
+COPY . .
 
-# Add build stuff for nokogiri (and others??)
+# Add dependencies for Nokogiri install and setup database
 RUN apk add --no-cache --virtual .rails-build-deps \
-        build-base \
-        libxml2-dev \
-        libxslt-dev
-
-RUN bundle config build.nokogiri --use-system-libraries
-RUN gem install nokogiri -v '1.6.8'
-RUN bundle
-
-# We don't want any external mounting other than logs
-VOLUME ["/rails/log"]
-
-# Setup the entrypoint
-COPY docker-entrypoint.sh /bin/
-RUN chmod +x /bin/docker-entrypoint.sh
-
-# Get stuff running
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["rails", "server", "puma"]
+  build-base \
+  libxml2-dev \
+  libxslt-dev \
+  bundle config build.nokogiri --use-system-libraries \
+  gem install nokogiri -v '1.6.8' \
+  bundle \
+  rails db:setup
