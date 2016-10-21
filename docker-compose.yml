@@ -1,28 +1,19 @@
-version: '2'
+version: "2"
+volumes:
+  db-data:
+    external: false
 services:
-  app:
-    image: nooulaif/rails
-    environment:
-      - RAILS_VERSION=4.2.4
-      - APP_NAME=example
-      - DB_HOST=db
-      - DB_ADAPTER=postgresql
-      - DB_USER=postgres
+  db:
+    image: postgres
+    env_file: .env
     volumes:
-      - ./:/home/app/webapp
-      - bundle_data:/home/app/bundle
+      - db-data:/var/lib/postgresql/db-data
+  app:
+    build: .
+    env_file: .env
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
     depends_on:
       - db
-    ports:
-      - 3000:3000
-  db:
-    image: postgres:9.5
-    volumes:
-      - db_data:/var/lib/postgresql
-    logging:
-      driver: none
-volumes:
-  bundle_data:
-    driver: local
-  db_data:
-    driver: local
