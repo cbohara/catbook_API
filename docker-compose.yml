@@ -3,7 +3,7 @@ services:
   app:
     image: nooulaif/rails
     environment:
-      - RAILS_VERSION=5.0.0.1
+      - RAILS_VERSION=4.2.4
       - APP_NAME=example
       - DB_HOST=db
       - DB_ADAPTER=postgresql
