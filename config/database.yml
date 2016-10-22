@@ -10,13 +10,13 @@ default: &default
 
 development:
   <<: *default
-  database: blog_development
+  database: catbook_api_development
 
 test:
   <<: *default
-  database: blog_test
+  database: catbook_api_test
 
 production:
   <<: *default
   host: <%= ENV["POSTGRES_HOST"] %>
-  database: blog_production
+  database: catbook_api_production
