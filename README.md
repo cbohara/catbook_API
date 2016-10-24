@@ -8,6 +8,10 @@ Built the JSON API with Rails 5 following this blog post:
 
 http://www.thegreatcodeadventure.com/building-a-super-simple-rails-api-json-api-edition-2/
 
+Live on Heroku at:
+
+https://cbohara-catbook-api.herokuapp.com/api/v1/cats.json
+
 ### Tools
 
 Rails 5.0.0.1 JSON API
